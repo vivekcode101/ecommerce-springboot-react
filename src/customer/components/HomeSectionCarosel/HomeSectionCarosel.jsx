@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import AliceCarousel from "react-alice-carousel";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
@@ -15,25 +15,30 @@ const HomeSectionCarosel = () => {
     1024: { items: 5.5 },
   };
 
-  const slidePrev=()=>setActiveIndex(activeIndex-1);
-  const slideNext=()=>setActiveIndex(activeIndex+1);
+  const slideNext = () => {
+    carouselRef.current.slideNext();
+  };
+  
+  const slidePrev = () => {
+    carouselRef.current.slidePrev();
+  };
 
-    const syncActiveIndex=({item})=>setActiveIndex(item) 
-      
+  const syncActiveIndex = ({ item }) => setActiveIndex(item);
+  const carouselRef = useRef();
 
   const items = mens_kurta.slice(0,10).map((item) => <HomeSectionCard  product={item} />);
 
   return (
     <div className="border">
       <div className="relative p-5">
-        <AliceCarousel
-          items={items}
-          disableButtonsControls
-          responsive={responsive}
-          disableDotsControls          
-          onSlideChanged={syncActiveIndex}
-          activeIndex={activeIndex}
-        />
+      <AliceCarousel
+  ref={carouselRef}
+  items={items}
+  disableButtonsControls
+  responsive={responsive}
+  disableDotsControls
+  onSlideChanged={syncActiveIndex}
+/>
         {activeIndex !==items.length-5 &&  (<Button
           variant="contained"
           className="z-50 bg-white"
