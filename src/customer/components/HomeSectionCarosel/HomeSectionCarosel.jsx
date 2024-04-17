@@ -4,6 +4,7 @@ import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { Button } from "@mui/material";
 import { mens_kurta } from "../../../Data/mens_kurta";
+import 'react-alice-carousel/lib/alice-carousel.css';
 
 const HomeSectionCarosel = () => {
     const [activeIndex,setActiveIndex] = useState(0);
@@ -17,7 +18,8 @@ const HomeSectionCarosel = () => {
   const slidePrev=()=>setActiveIndex(activeIndex-1);
   const slideNext=()=>setActiveIndex(activeIndex+1);
 
-  const syncActiveIndex=({item})=>setActiveIndex(item);
+    const syncActiveIndex=({item})=>setActiveIndex(item) 
+      
 
   const items = mens_kurta.slice(0,10).map((item) => <HomeSectionCard  product={item} />);
 
@@ -27,13 +29,12 @@ const HomeSectionCarosel = () => {
         <AliceCarousel
           items={items}
           disableButtonsControls
-          infinite
           responsive={responsive}
           disableDotsControls          
           onSlideChanged={syncActiveIndex}
           activeIndex={activeIndex}
         />
-        {activeIndex!==items.length-5 &&  <Button
+        {activeIndex !==items.length-5 &&  (<Button
           variant="contained"
           className="z-50 bg-white"
           onClick={slideNext}
@@ -49,7 +50,7 @@ const HomeSectionCarosel = () => {
           <KeyboardArrowLeftIcon
             sx={{ transform: "rotate(90deg)", color: "black" }}
           />
-        </Button>}
+        </Button>)}
 
         <Button
           variant="contained"
@@ -58,7 +59,7 @@ const HomeSectionCarosel = () => {
           sx={{
             position: "absolute",
             top: "8rem",
-            leftt: "0rem",
+            left: "0rem",
             transform: "translateX(-50%) rotate(-90deg)",
             bgcolor: "white",
           }}
